@@ -1,0 +1,4 @@
+include ':custom_dialog'
+include ':app'
+rootProject.name = "custom_dialog_app"
+//project(':custom-dialog').projectDir = new File('custom-dialog')
