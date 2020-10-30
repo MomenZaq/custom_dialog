@@ -54,6 +54,7 @@ public class CustomDialog extends DialogFragment {
     private Button btnOk;
     private Button btnCancel;
     private String currentText;
+    private String customFont;
 
     public CustomDialog(Context context) {
         this.context = context;
@@ -193,10 +194,18 @@ public class CustomDialog extends DialogFragment {
         editText.setGravity(Gravity.TOP | Gravity.START);
         editText.setLayoutParams(layoutParams);
         editText.setBackgroundResource(R.drawable.bck_edittext);
-        Typeface face = Typeface.createFromAsset(context.getAssets(),
-                "29LTBukra-Bold.ttf");
-        editText.setTypeface(face);
 
+        try {
+
+            if (customFont != null) {
+                Typeface face = Typeface.createFromAsset(context.getAssets(),
+                        customFont);
+                editText.setTypeface(face);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
         editText.setTextSize((int) context.getResources().getDimension(R.dimen._4sdp));
         if (currentText != null) {
             editText.setText(currentText);
@@ -272,5 +281,9 @@ public class CustomDialog extends DialogFragment {
 
     public void setRTL(boolean RTL) {
         isRTL = RTL;
+    }
+
+    public void setCustomFont(String customFont) {
+        this.customFont = customFont;
     }
 }

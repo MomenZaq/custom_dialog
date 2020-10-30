@@ -36,12 +36,13 @@ public class MultiChoiceAdapter extends RecyclerView.Adapter<MultiChoiceAdapter.
     public void onBindViewHolder(@NonNull final OrderHolder holder, final int position) {
         MultiChoiceModel multiChoiceModel = multiChoiceModelList.get(holder.getAdapterPosition());
         holder.txvItem.setText(multiChoiceModel.getText());
-        holder.txvItem.setTextColor(ContextCompat.getColor(context,multiChoiceModel.getColor()));
+        if (multiChoiceModel.getColor() > 0)
+            holder.txvItem.setTextColor(ContextCompat.getColor(context, multiChoiceModel.getColor()));
 
         holder.txvItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Selected Item: "+holder.getAdapterPosition());
+                System.out.println("Selected Item: " + holder.getAdapterPosition());
                 onSelectItemInterface.onSelect(holder.getAdapterPosition());
             }
         });
