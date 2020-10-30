@@ -1,4 +1,4 @@
-# custom_dialog [![](https://jitpack.io/v/gupta1anubhav/Custom-Dialog-Box.svg)](https://jitpack.io/#MomenZaq/custom-dialog/)
+# custom_dialog [![](https://jitpack.io/v/gupta1anubhav/Custom-Dialog-Box.svg)](https://jitpack.io/#MomenZaq/custom_dialog/)
 
 Simple and easy Android Custom Dialogs 
 
