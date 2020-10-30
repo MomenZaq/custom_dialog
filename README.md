@@ -1,12 +1,8 @@
-# custom-dialog [![](https://jitpack.io/v/gupta1anubhav/Custom-Dialog-Box.svg)](https://jitpack.io/#MomenZaq/custom-dialog/)
+# custom_dialog [![](https://jitpack.io/v/gupta1anubhav/Custom-Dialog-Box.svg)](https://jitpack.io/#MomenZaq/custom-dialog/)
 
 Simple and easy Android Custom Dialogs 
 
 ![Sample Video](https://thumbs.gfycat.com/PowerlessTameCassowary-size_restricted.gif)
-
----
-# Sample.apk
-You can download the latest sample APK from this repo here: https://github.com/gupta1anubhav/Custom-Dialog-Box/blob/master/sample/sample.apk
 
 ---
 ### Import to your project
