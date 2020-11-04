@@ -2,7 +2,7 @@
 
 Simple and easy Android Custom Dialogs 
 
-![Sample Video](https://github.com/MomenZaq/custom_dialog/blob/master/screenshot/example.gif)
+![Sample Video](https://github.com/MomenZaq/custom_dialog/blob/master/screenshot/example2.gif)
 
 ---
 ### Import to your project
