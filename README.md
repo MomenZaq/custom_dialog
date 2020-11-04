@@ -2,14 +2,14 @@
 
 Simple and easy Android Custom Dialogs 
 
-![Sample Video](https://thumbs.gfycat.com/PowerlessTameCassowary-size_restricted.gif)
+![Sample Video](https://github.com/MomenZaq/custom_dialog/blob/master/screenshot/example.gif)
 
 ---
 ### Import to your project
 
 The Gradle dependency is available via jitpack.
 
-The minimum API level supported by this library is API 14, Android 4.0 (ICE_CREAM_SANDWICH)
+The minimum API level supported by this library is API 16, Android 4.0 (ICE_CREAM_SANDWICH)
 
 Add JitPack to your repositories in build.gradle (Module:Project):
 ```gradle
@@ -24,114 +24,79 @@ allprojects{
 and add the library to your dependencies in build.gradle (Module: app):
 
 ```
-    implementation 'com.github.gupta1anubhav:Custom-Dialog-Box:v1.0'
+    implementation 'com.github.MomenZaq:custom_dialog:1.0'
 ```
 ---
 
-### CustomDialogBox - Basic
+### CustomDialogBox - Multichoice 
 
 ```java
-new CustomDialog.Builder(thisActivity)
-          .setTitle("Hello !")
-          .setContent("This is basic CustomDialog :)", 3)
+// create list of options
+  List<MultiChoiceModel> multiChoiceAdapterList = new ArrayList<>();
 
-          // Customizing (You can find more in Wiki)
+        // set font is optional
+        MultiChoiceModel multiChoiceModel = new MultiChoiceModel("Option 1", R.color.font);
+        multiChoiceAdapterList.add(multiChoiceModel);
+        multiChoiceModel = new MultiChoiceModel("Option 2",R.color.colorPrimaryDark);
+        multiChoiceAdapterList.add(multiChoiceModel);
+        multiChoiceModel = new MultiChoiceModel("Option 3");
+        multiChoiceAdapterList.add(multiChoiceModel);
+        multiChoiceModel = new MultiChoiceModel("Option 4");
+        multiChoiceAdapterList.add(multiChoiceModel);
 
-          //.setBtnConfirmText("Check!")
-          //.setBtnConfirmTextColor("#de413e")
-          //.setBtnCancelText("Cancel")
-          //.setBtnCancelTextColor("#de413e")
-          //.setCancelable(true)          // Default value is false
-          //.onConfirm(new CustomDialog.BtnCallback() {
-          //    @Override
-          //    public void onClick(@NonNull CustomDialog dialog, @NonNull CustomDialog.BtnAction which) {
-          //        // Do something
-          //    }
-          //})
-          //.setBtnCancelText("Cancel", false)
-          //.onCancel(new CustomDialog.BtnCallback() {
-          //    @Override
-          //    public void onClick(@NonNull CustomDialog dialog, @NonNull CustomDialog.BtnAction which) {
-          //        // Do something
-          //    }
-          //})
-          .show();    // Must be called at the end
+        final CustomDialog customDialog = new CustomDialog(getBaseContext());
+        customDialog.setTitle(getBaseContext().getResources().getString(R.string.options), R.color.font_black);
+        //optional
+        customDialog.setBackgroundColor(R.color.card_white_bck);
+        // optional
+        customDialog1.setSubTitle("Dialog Subtitle");
+       // optional
+        customDialog1.setRTL(false);
+        
+        customDialog.setMultiChoiceType(multiChoiceAdapterList, new OnSelectItemInterface() {
+            @Override
+            public void onSelect(int position1) {
+                Toast.makeText(MainActivity.this.getBaseContext(), "Selected: " + position1, Toast.LENGTH_SHORT).show();
+                customDialog.dismiss();
+            }
+        });
+        customDialog.show(getSupportFragmentManager(), CustomDialog.TAG);
 ```
 
 
-### CustomDialogBox - Progress
+### CustomDialogBox - EditText 
 
 ```java
-new CustomDialog.Builder(thisActivity)
-          .setContent("This is progress CustomDialog :)", 7)
-          // .showProgress must be set true if you want ProgressDialog
-          .showProgress(true)     // Default GIF is in the library (R.raw.simple_dialog_progress_default)
-          //.setProgressGIF(R.raw.simple_dialog_progress_default)
-          .setBtnCancelText("Cancel")
-          .setBtnCancelTextColor("#2861b0")
+    final CustomDialog customDialog1 = new CustomDialog(getBaseContext());
+        customDialog1.setTitle("Dialog Title");
+        // optional
+        customDialog1.setSubTitle("Dialog Subtitle");
+        // optional
+        customDialog1.setBackgroundColor(R.color.card_white_bck);
+        // optional
+        customDialog1.setRTL(false);
+        // optional
+        customDialog1.setCustomFont("my_app_font.ttf"); //  font name that inside assets
 
-          // Customizing (You can find more in Wiki)
+        customDialog1.setEditTextType("optional text", new OnFinishEditInterface() {
+            @Override
+            public void onFinish(String text) {
 
-          //.setBtnCancelText("Cancel", false)
-          //.setBtnCancelTextColor(R.color.colorPrimary)
-          //.setBtnCancelShowTime(2000)
-          //.onCancel(new CustomDialog.BtnCallback() {
-          //    @Override
-          //    public void onClick(@NonNull CustomDialog dialog, @NonNull CustomDialog.BtnAction which) {
-          //        // thisActivity.finish();
-          //    }
-          //})
-          //.showProgress(true)
-          .show();    // Must be called at the end
+                Toast.makeText(MainActivity.this.getBaseContext(), "Text: " + text, Toast.LENGTH_SHORT).show();
+            customDialog1.dismiss();
+            }
+        });
+
+        // optional
+        customDialog1.setOnCancelInterface(new OnCancelInterface() {
+            @Override
+            public void onCancel() {
+                Toast.makeText(MainActivity.this, "dialog has been canceled", Toast.LENGTH_SHORT).show();
+            }
+        });
+        customDialog1.show(getSupportFragmentManager(), CustomDialog.TAG);
 ```
 
-
-### CustomDialogBox - Guide
-
-```java
-new CustomDialog.Builder(thisActivity)
-          .setTitle("Hello !", true)
-          .setContent("This is guide CustomDialog :)\n\n- You can pinch the view !")
-          .setGuideImage(R.drawable.image_guide_pinch)
-          .setGuideImageSizeDp(150, 150)
-          .setPermanentCheck(Pref.PREFERENCE_NAME, Pref.KEY_FIRST_WELCOME)
-          .onConfirm(new CustomDialog.BtnCallbackWithPermanentCheck() {
-              @Override
-              public void onClick(@NonNull CustomDialog dialog, @NonNull CustomDialog.BtnAction which, boolean isPermanentChecked) {
-                  if( isPermanentChecked )
-                      setBtnGuideReset(true);
-              }
-          })
-          .setBtnConfirmText("Check!")
-          .setBtnConfirmTextColor("#e6b115")
-          // I thought cancel button is not necessary, it's unavailable unless there're requests
-
-
-          // Customizing (You can find more in Wiki)
-
-          //.setTitle("Hello !", true)
-          //.setBtnPermanentCheckText("다시 보지 않기", true)
-          //.setGuideImagePaddingDp(10)
-          //.setGuideImageSizeDp(100, 100)
-          .showIfPermanentValueIsFalse();  // Must be called at the end (if permanentCheck is necessary)
-```
-
-
-### CustomDialogBox - CustomView
-
-```java
-new CustomDialog.Builder(thisActivity)
-          .setTitle("This is Title :)")
-          // If the customView is long enough, CustomDialog will put your layout in the ScrollView automatically
-          .setCustomView(R.layout.gupta1anubhav_simple_dialog_test_layout_custom_long)
-          .setBtnConfirmText("Check!")
-          .setBtnConfirmTextSizeDp(16)
-          .setBtnConfirmTextColor("#1fd1ab")
-          .setBtnCancelText("Cancel", false)
-          .setBtnCancelTextColor("#555555")
-          .show();    // Must be called at the end
-```
----
 
 License
 -------
